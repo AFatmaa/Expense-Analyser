@@ -24,11 +24,27 @@ def calculate_total(expenses):
 
   return total
 
+def calculate_by_category(expenses):
+  category_total = {}
+
+  for expense in expenses:
+    category = expense["category"]
+    amount = expense["amount"]
+
+    if category in category_total:
+      category_total[category] += amount
+    else:
+      category_total[category] = amount
+  
+  return category_total
+
 def main():
   expenses = read_expenses("expenses.csv")
   total = calculate_total(expenses)
+  category_totals = calculate_by_category(expenses)
   
   print(total)
+  print(category_totals)
 
 if __name__ == "__main__":
   main()
