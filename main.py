@@ -38,13 +38,29 @@ def calculate_by_category(expenses):
   
   return category_total
 
+def get_top_category(category_totals):
+  top_category = None
+  top_amount = 0
+
+  for category, amount in category_totals.items():
+    if amount > top_amount:
+      top_category = category
+      top_amount = amount
+    
+  return {
+    "category": top_category,
+    "amount": top_amount,
+  }
+
 def main():
   expenses = read_expenses("expenses.csv")
   total = calculate_total(expenses)
   category_totals = calculate_by_category(expenses)
+  top_category = get_top_category(category_totals)
   
   print(total)
   print(category_totals)
+  print(top_category)
 
 if __name__ == "__main__":
   main()
