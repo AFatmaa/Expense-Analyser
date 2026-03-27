@@ -52,15 +52,25 @@ def get_top_category(category_totals):
     "amount": top_amount,
   }
 
+def print_report(total, category_totals, top_category):
+  print("\nExpense Report")
+  print("-" * 30)
+  print(f"Total spending: £{total:.2f}\n")
+
+  print("Spending by category:")
+  for category, amount in category_totals.items():
+    print(f"- {category}: £{amount:.2f}")
+  
+  print("\nTop category:")
+  print(f"{top_category['category']}: £{top_category['amount']:.2f}")
+
 def main():
   expenses = read_expenses("expenses.csv")
   total = calculate_total(expenses)
   category_totals = calculate_by_category(expenses)
   top_category = get_top_category(category_totals)
   
-  print(total)
-  print(category_totals)
-  print(top_category)
+  print_report(total, category_totals, top_category)
 
 if __name__ == "__main__":
   main()
