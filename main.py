@@ -57,10 +57,11 @@ def get_top_category(category_totals):
     "amount": top_amount,
   }
 
-def print_report(total, category_totals, top_category):
+def print_report(total, average, category_totals, top_category):
   print("\nExpense Report")
   print("-" * 30)
   print(f"Total spending: £{total:.2f}\n")
+  print(f"Average expense: £{average:.2f}\n")
 
   print("Spending by category:")
   for category, amount in category_totals.items():
@@ -68,6 +69,16 @@ def print_report(total, category_totals, top_category):
   
   print("\nTop category:")
   print(f"{top_category['category']}: £{top_category['amount']:.2f}")
+
+def calculate_average(expenses):
+
+  if not expenses:
+      return 0
+  
+  total = calculate_total(expenses)
+  average = total / len(expenses)
+
+  return average
 
 def main():
   file_name = "expenses.csv"
@@ -77,10 +88,11 @@ def main():
     return
   
   total = calculate_total(expenses)
+  average = calculate_average(expenses)
   category_totals = calculate_by_category(expenses)
   top_category = get_top_category(category_totals)
   
-  print_report(total, category_totals, top_category)
+  print_report(total, average, category_totals, top_category)
 
 if __name__ == "__main__":
   main()
