@@ -3,18 +3,23 @@ import csv
 def read_expenses(file_name):
   expenses = []
 
-  with open(file_name, mode="r") as file:
-    reader = csv.DictReader(file)
+  try:
+    with open(file_name, mode="r") as file:
+      reader = csv.DictReader(file)
 
-    for row in reader:
-      expense = {
-        "date": row["date"],
-        "category": row["category"],
-        "amount": float(row["amount"])
-      }
-      expenses.append(expense)
+      for row in reader:
+        expense = {
+          "date": row["date"],
+          "category": row["category"],
+          "amount": float(row["amount"])
+        }
+        expenses.append(expense)
+
+  except FileNotFoundError:
+    print(f"Error: The file '{file_name}' was not found.")
+    return []
     
-    return expenses
+  return expenses
   
 def calculate_total(expenses):
   total = 0
@@ -65,7 +70,12 @@ def print_report(total, category_totals, top_category):
   print(f"{top_category['category']}: £{top_category['amount']:.2f}")
 
 def main():
-  expenses = read_expenses("expenses.csv")
+  file_name = "expenses.csv"
+  expenses = read_expenses(file_name)
+
+  if not expenses:
+    return
+  
   total = calculate_total(expenses)
   category_totals = calculate_by_category(expenses)
   top_category = get_top_category(category_totals)
