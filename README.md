@@ -19,7 +19,7 @@ A simple Python project that reads expense data from a CSV file and generates a 
 ## Project Structure
 
 ```
-expense-analyszer/
+expense-analyser/
 ├── main.py
 ├── expenses.csv
 └── README.md
