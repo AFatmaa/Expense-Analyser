@@ -140,7 +140,8 @@ def print_report(
   )
 
 def main():
-  file_name = "expenses.csv"
+  file_name = input("Enter CSV file name (default: expenses.csv): ").strip() or "expenses.csv"
+  
   expenses = read_expenses(file_name)
 
   if not expenses:
