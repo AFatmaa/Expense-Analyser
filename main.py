@@ -111,11 +111,23 @@ def print_report(
   print(f"Average expense: £{average:.2f}\n")
 
   print("Spending by category:")
-  for category, amount in category_totals.items():
+  sorted_category_totals = sorted(
+    category_totals.items(),
+    key=lambda item: item[1],
+    reverse=True,
+  )
+
+  for category, amount in sorted_category_totals:
     print(f"- {category}: £{amount:.2f}")
 
   print(f"\nAverage by category:")
-  for category, avg in category_averages.items():
+  sorted_category_averages = sorted(
+    category_averages.items(),
+    key=lambda item: item[1],
+    reverse=True,
+  )
+
+  for category, avg in sorted_category_averages:
     print(f"- {category}: £{avg:.2f}")
   
   print("\nTop category:")
