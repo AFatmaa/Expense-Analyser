@@ -57,23 +57,6 @@ def get_top_category(category_totals):
     "amount": top_amount,
   }
 
-def print_report(total, average, category_totals, category_averages, top_category):
-  print("\nExpense Report")
-  print("-" * 30)
-  print(f"Total spending: £{total:.2f}\n")
-  print(f"Average expense: £{average:.2f}\n")
-
-  print("Spending by category:")
-  for category, amount in category_totals.items():
-    print(f"- {category}: £{amount:.2f}")
-
-  print(f"\nAverage by category:")
-  for category, avg in category_averages.items():
-    print(f"- {category}: £{avg:.2f}")
-  
-  print("\nTop category:")
-  print(f"{top_category['category']}: £{top_category['amount']:.2f}")
-
 def calculate_average(expenses):
 
   if not expenses:
@@ -105,6 +88,45 @@ def calculate_category_averages(expenses):
 
   return category_averages
 
+def get_highest_expense(expenses):
+  highest_expense = expenses[0]
+
+  for expense in expenses:
+    if expense["amount"] > highest_expense["amount"]:
+      highest_expense = expense
+
+  return highest_expense
+
+def print_report(
+    total, 
+    average, 
+    category_totals, 
+    category_averages, 
+    top_category,
+    highest_expense,
+):
+  print("\nExpense Report")
+  print("-" * 30)
+  print(f"Total spending: £{total:.2f}\n")
+  print(f"Average expense: £{average:.2f}\n")
+
+  print("Spending by category:")
+  for category, amount in category_totals.items():
+    print(f"- {category}: £{amount:.2f}")
+
+  print(f"\nAverage by category:")
+  for category, avg in category_averages.items():
+    print(f"- {category}: £{avg:.2f}")
+  
+  print("\nTop category:")
+  print(f"{top_category['category']}: £{top_category['amount']:.2f}")
+
+  print("\nHighest single expense")
+  print(
+    f"- {highest_expense['category']} on {highest_expense['date']}: "
+    f"£{highest_expense['amount']:.2f}"
+  )
+
 def main():
   file_name = "expenses.csv"
   expenses = read_expenses(file_name)
@@ -117,8 +139,16 @@ def main():
   category_totals = calculate_by_category(expenses)
   category_averages = calculate_category_averages(expenses)
   top_category = get_top_category(category_totals)
+  highest_expense = get_highest_expense(expenses)
   
-  print_report(total, average, category_totals, category_averages, top_category)
+  print_report(
+    total, 
+    average, 
+    category_totals, 
+    category_averages, 
+    top_category,
+    highest_expense,
+  )
 
 if __name__ == "__main__":
   main()
