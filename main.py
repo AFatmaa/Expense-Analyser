@@ -1,6 +1,9 @@
 import csv
+DEFAULT_FILE_NAME = "expenses.csv"
+REPORT_LINE_LENGTH = 30
 
 def read_expenses(file_name):
+  """Read expenses from a CSV file and return a list of dictionaries."""
   expenses = []
 
   try:
@@ -22,6 +25,7 @@ def read_expenses(file_name):
   return expenses
   
 def calculate_total(expenses):
+  """Calculate the total amount from all expenses."""
   total = 0
 
   for expense in expenses:
@@ -30,6 +34,7 @@ def calculate_total(expenses):
   return total
 
 def calculate_by_category(expenses):
+  """Group expenses by category and calculate total spending for each category."""
   category_total = {}
 
   for expense in expenses:
@@ -44,6 +49,7 @@ def calculate_by_category(expenses):
   return category_total
 
 def get_top_category(category_totals):
+  """Return the category with the highest total spending."""
   top_category = None
   top_amount = 0
 
@@ -58,7 +64,7 @@ def get_top_category(category_totals):
   }
 
 def calculate_average(expenses):
-
+  """Calculate the average amount per expense."""
   if not expenses:
       return 0
   
@@ -68,6 +74,7 @@ def calculate_average(expenses):
   return average
 
 def calculate_category_averages(expenses):
+  """Calculate the average expense amount for each category."""
   category_data = {}
 
   for expense in expenses:
@@ -89,6 +96,7 @@ def calculate_category_averages(expenses):
   return category_averages
 
 def get_highest_expense(expenses):
+  """Return the single highest expense entry."""
   highest_expense = expenses[0]
 
   for expense in expenses:
@@ -105,8 +113,9 @@ def print_report(
     top_category,
     highest_expense,
 ):
+  """Print a formatted expense report to the terminal."""
   print("\nExpense Report")
-  print("-" * 30)
+  print("-" * REPORT_LINE_LENGTH)
   print(f"Total spending: £{total:.2f}\n")
   print(f"Average expense: £{average:.2f}\n")
 
@@ -140,7 +149,8 @@ def print_report(
   )
 
 def main():
-  file_name = input("Enter CSV file name (default: expenses.csv): ").strip() or "expenses.csv"
+  """Run the expense analyser application."""
+  file_name = input(f"Enter CSV file name (default: {DEFAULT_FILE_NAME}): ").strip() or DEFAULT_FILE_NAME
   
   expenses = read_expenses(file_name)
 
